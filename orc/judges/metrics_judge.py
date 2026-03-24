@@ -7,7 +7,7 @@ Evaluates submissions based on objective metrics like latency, accuracy, and cos
 from typing import Callable, Dict, List, Optional
 
 from dynabots_core import Verdict
-from dynabots_core.protocols.judge import Judge, Submission
+from dynabots_core.protocols.judge import Submission
 
 
 class MetricsJudge:

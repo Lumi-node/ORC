@@ -8,7 +8,7 @@ import json
 from typing import List, Optional
 
 from dynabots_core import LLMProvider, LLMMessage, Verdict
-from dynabots_core.protocols.judge import Judge, Submission
+from dynabots_core.protocols.judge import Submission
 
 
 class LLMJudge:
