@@ -5,6 +5,7 @@ A Warrior is a thin wrapper around the Agent protocol with ORC theming.
 Each Warrior has a name, LLM client, system prompt, and capabilities.
 """
 
+import random
 from typing import Any, Dict, List, Optional, Union
 
 from dynabots_core import TaskResult
@@ -91,13 +92,15 @@ class Warrior:
 
         try:
             if isinstance(self.llm_client, str):
-                # Mock mode: return success without calling LLM
+                # Mock mode: simulate variable performance
+                duration = random.randint(50, 500)
                 return TaskResult.success(
                     task_id=task_id,
                     data={
                         "response": f"Warrior {self.name} processed task: {task_description}",
                         "model": self.llm_client,
                     },
+                    duration_ms=duration,
                 )
 
             # Real LLM mode: call the provider

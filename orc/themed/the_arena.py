@@ -117,4 +117,8 @@ class TheArena(Arena):
 
     def _themed_on_trial_complete(self, verdict: Any):
         """Themed output when a trial completes."""
-        print(f"\n⚖️ The Elder has spoken. Verdict: {verdict.reasoning[:100]}...")
+        winner = verdict.winner
+        if verdict.is_tie:
+            print(f"  ⚖️ The Elder declares a TIE — Warchief retains the throne!")
+        else:
+            print(f"  ⚖️ The Elder has spoken: {winner} prevails!")

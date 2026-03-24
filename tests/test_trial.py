@@ -97,10 +97,14 @@ class TestTrialExecution:
 
         assert result.winner_result is not None
         # Winner is determined by judge's verdict
-        if result.verdict.winner == mock_agent_fast.name:
+        # Ties or unrecognized names default to warlord (defender's advantage)
+        if result.winner == mock_agent_fast.name:
             assert result.winner_result == result.warlord_result
-        else:
+        elif result.winner == mock_agent_slow.name:
             assert result.winner_result == result.challenger_result
+        else:
+            # Tie or fallback — warlord retains
+            assert result.winner_result == result.warlord_result
 
 
 class TestTimeoutHandling:

@@ -170,8 +170,10 @@ class Trial:
         # Judge evaluates
         verdict = await self.judge.evaluate(self.task, submissions)
 
-        # Determine winner
+        # Determine winner (ties go to the defending warlord)
         winner = verdict.winner
+        if verdict.is_tie or winner not in (self.warlord.name, self.challenger.name):
+            winner = self.warlord.name
         winner_result = (
             warlord_result if winner == self.warlord.name else challenger_result
         )
