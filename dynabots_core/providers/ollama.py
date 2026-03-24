@@ -156,30 +156,39 @@ class OllamaProvider:
         # Make the request
         response = await self._client.chat(**kwargs)
 
+        # Handle both dict and Pydantic response objects
+        msg = response.message if hasattr(response, "message") else response.get("message", {})
+        content = msg.content if hasattr(msg, "content") else msg.get("content", "")
+
         # Extract tool calls if present
         tool_calls = None
-        if "message" in response and "tool_calls" in response["message"]:
-            tool_calls = response["message"]["tool_calls"]
+        msg_tools = getattr(msg, "tool_calls", None) or (msg.get("tool_calls") if isinstance(msg, dict) else None)
+        if msg_tools:
+            tool_calls = msg_tools
 
-        # Build response
+        # Extract usage
+        prompt_tokens = getattr(response, "prompt_eval_count", 0) or (response.get("prompt_eval_count", 0) if isinstance(response, dict) else 0)
+        completion_tokens = getattr(response, "eval_count", 0) or (response.get("eval_count", 0) if isinstance(response, dict) else 0)
+
         return LLMResponse(
-            content=response["message"]["content"],
+            content=content,
             model=self._model,
             tool_calls=tool_calls,
             usage={
-                "prompt_tokens": response.get("prompt_eval_count", 0),
-                "completion_tokens": response.get("eval_count", 0),
-                "total_tokens": (
-                    response.get("prompt_eval_count", 0)
-                    + response.get("eval_count", 0)
-                ),
+                "prompt_tokens": prompt_tokens,
+                "completion_tokens": completion_tokens,
+                "total_tokens": prompt_tokens + completion_tokens,
             },
         )
 
     async def list_models(self) -> List[str]:
         """List available models on the Ollama server."""
         response = await self._client.list()
-        return [model["name"] for model in response["models"]]
+        models = response.models if hasattr(response, "models") else response.get("models", [])
+        return [
+            m.model if hasattr(m, "model") else m.get("name", m.get("model", str(m)))
+            for m in models
+        ]
 
     async def pull_model(self, model: str) -> None:
         """Pull a model from the Ollama library."""

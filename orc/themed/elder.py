@@ -30,6 +30,7 @@ class Elder:
         evaluator_model: Optional[str] = None,
         evaluation_criteria: Optional[str] = None,
         judge: Optional[Judge] = None,
+        llm: Optional[Any] = None,
     ):
         """
         Initialize an Elder.
@@ -38,9 +39,11 @@ class Elder:
             evaluator_model: LLM model to use for evaluation (e.g., "claude-3-opus").
             evaluation_criteria: Custom criteria for evaluation.
             judge: Pre-built Judge instance (overrides evaluator_model if provided).
+            llm: LLMProvider instance for LLM-based judging.
         """
         self.evaluator_model = evaluator_model
         self.evaluation_criteria = evaluation_criteria
+        self._llm = llm
         self._judge = judge
 
     @property
@@ -49,13 +52,16 @@ class Elder:
         if self._judge is not None:
             return self._judge
 
-        # If no judge was provided, create a MetricsJudge as fallback
-        if self.evaluator_model is None:
-            # Default to MetricsJudge
-            self._judge = MetricsJudge()
+        # If an LLM provider was given, use LLMJudge
+        if self._llm is not None:
+            criteria = (
+                [c.strip() for c in self.evaluation_criteria.split(",")]
+                if self.evaluation_criteria
+                else None
+            )
+            self._judge = LLMJudge(self._llm, criteria=criteria)
         else:
-            # Would create LLMJudge if we had LLM provider setup
-            # For now, fall back to MetricsJudge
+            # Default to MetricsJudge
             self._judge = MetricsJudge()
 
         return self._judge

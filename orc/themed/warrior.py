@@ -104,23 +104,33 @@ class Warrior:
                 )
 
             # Real LLM mode: call the provider
-            # Assuming llm_client has a complete method
             if hasattr(self.llm_client, "complete"):
-                prompt = f"{self.system_prompt}\n\nTask: {task_description}"
+                from dynabots_core import LLMMessage
+                import time
+
+                start = time.perf_counter()
                 response = await self.llm_client.complete(
-                    prompt=prompt,
+                    messages=[
+                        LLMMessage(role="system", content=self.system_prompt),
+                        LLMMessage(role="user", content=task_description),
+                    ],
                     temperature=self.temperature,
                 )
-                return TaskResult.success(
-                    task_id=task_id,
-                    data={"response": response},
-                )
-            else:
-                # Fallback if complete method doesn't exist
+                elapsed_ms = int((time.perf_counter() - start) * 1000)
+
                 return TaskResult.success(
                     task_id=task_id,
                     data={
-                        "response": f"Warrior {self.name} processed task (no LLM available): {task_description}"
+                        "response": response.content,
+                        "model": getattr(self.llm_client, "model", "unknown"),
+                    },
+                    duration_ms=elapsed_ms,
+                )
+            else:
+                return TaskResult.success(
+                    task_id=task_id,
+                    data={
+                        "response": f"Warrior {self.name} processed task (no LLM): {task_description}"
                     },
                 )
 
