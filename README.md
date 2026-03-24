@@ -266,7 +266,7 @@ python examples/full_campaign.py
 
 ## Built With
 
-ORC is powered by [dynabots-core](https://github.com/Lumi-node/Dynabots) — a zero-dependency protocol foundation for multi-agent systems. ORC is the first in a family of orchestration frameworks, each exploring a different paradigm for coordinating AI agents.
+ORC is powered by [dynabots-core](https://github.com/Lumi-node/Dynabots-core) — a zero-dependency protocol foundation for multi-agent systems. ORC is the first in a family of orchestration frameworks, each exploring a different paradigm for coordinating AI agents.
 
 ## License
 
