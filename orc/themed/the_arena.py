@@ -8,10 +8,9 @@ It accepts Warriors and Elders directly for a more thematic API.
 from typing import Any, Dict, List, Optional
 
 from orc.arena import Arena, ArenaConfig, TrialResult
-from orc.judges import MetricsJudge
-from orc.themed.warrior import Warrior
 from orc.themed.elder import Elder
 from orc.themed.warchief import Warchief
+from orc.themed.warrior import Warrior
 
 
 class TheArena(Arena):
@@ -119,6 +118,6 @@ class TheArena(Arena):
         """Themed output when a trial completes."""
         winner = verdict.winner
         if verdict.is_tie:
-            print(f"  ⚖️ The Elder declares a TIE — Warchief retains the throne!")
+            print("  ⚖️ The Elder declares a TIE — Warchief retains the throne!")
         else:
             print(f"  ⚖️ The Elder has spoken: {winner} prevails!")

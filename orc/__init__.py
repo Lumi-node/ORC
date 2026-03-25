@@ -17,15 +17,15 @@ Example:
 """
 
 from orc.arena import Arena, ArenaConfig, TrialResult
-from orc.judges import LLMJudge, MetricsJudge, ConsensusJudge
+from orc.judges import ConsensusJudge, LLMJudge, MetricsJudge
 from orc.strategies import (
-    ChallengeStrategy,
     AlwaysChallenge,
-    ReputationBased,
+    ChallengeStrategy,
     CooldownStrategy,
+    ReputationBased,
     SpecialistStrategy,
 )
-from orc.themed import Warrior, Elder, Warchief, TheArena
+from orc.themed import Elder, TheArena, Warchief, Warrior
 
 __version__ = "0.1.0"
 

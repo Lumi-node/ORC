@@ -9,7 +9,7 @@ from typing import Any, List, Optional
 
 from dynabots_core import Verdict
 from dynabots_core.protocols.judge import Judge, Submission
-from orc.judges import MetricsJudge, LLMJudge
+from orc.judges import LLMJudge, MetricsJudge
 
 
 class Elder:

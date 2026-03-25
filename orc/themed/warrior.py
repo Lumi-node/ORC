@@ -105,8 +105,9 @@ class Warrior:
 
             # Real LLM mode: call the provider
             if hasattr(self.llm_client, "complete"):
-                from dynabots_core import LLMMessage
                 import time
+
+                from dynabots_core import LLMMessage
 
                 start = time.perf_counter()
                 response = await self.llm_client.complete(
@@ -130,7 +131,10 @@ class Warrior:
                 return TaskResult.success(
                     task_id=task_id,
                     data={
-                        "response": f"Warrior {self.name} processed task (no LLM): {task_description}"
+                        "response": (
+                            f"Warrior {self.name} processed task "
+                            f"(no LLM): {task_description}"
+                        )
                     },
                 )
 

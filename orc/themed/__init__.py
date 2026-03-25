@@ -7,9 +7,9 @@ This module provides themed classes for a more engaging ORC experience:
 - TheArena: The stage where warriors compete
 """
 
-from orc.themed.warrior import Warrior
 from orc.themed.elder import Elder
-from orc.themed.warchief import Warchief
 from orc.themed.the_arena import TheArena
+from orc.themed.warchief import Warchief
+from orc.themed.warrior import Warrior
 
 __all__ = ["Warrior", "Elder", "Warchief", "TheArena"]

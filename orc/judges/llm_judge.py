@@ -7,7 +7,7 @@ Uses an LLM to evaluate agent submissions and determine winners.
 import json
 from typing import List, Optional
 
-from dynabots_core import LLMProvider, LLMMessage, Verdict
+from dynabots_core import LLMMessage, LLMProvider, Verdict
 from dynabots_core.protocols.judge import Submission
 
 
@@ -65,7 +65,8 @@ You must respond with valid JSON in this format:
     "confidence": 0.0-1.0
 }}
 
-Be fair and objective. If submissions are truly equivalent, you may declare a tie by setting winner to "tie".
+Be fair and objective. If submissions are truly equivalent,
+you may declare a tie by setting winner to "tie".
 """
 
     async def evaluate(

@@ -6,12 +6,12 @@ Both agents attempt the same task, and a Judge determines the winner.
 """
 
 import asyncio
+import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional
-import uuid
 
-from dynabots_core import Agent, TaskResult, Judge, Verdict
+from dynabots_core import Agent, Judge, TaskResult, Verdict
 from dynabots_core.protocols.judge import Submission
 
 
@@ -61,7 +61,9 @@ class TrialResult:
             "was_challenged": self.was_challenged,
             "verdict": self.verdict.to_dict() if self.verdict else None,
             "warlord_result": self.warlord_result.to_dict() if self.warlord_result else None,
-            "challenger_result": self.challenger_result.to_dict() if self.challenger_result else None,
+            "challenger_result": (
+                self.challenger_result.to_dict() if self.challenger_result else None
+            ),
             "timestamp": self.timestamp.isoformat(),
             "duration_ms": self.duration_ms,
         }
