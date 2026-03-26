@@ -1,0 +1,87 @@
+site_name: "ORC — Orchestration by Ruthless Competition"
+site_url: https://lumi-node.github.io/ORC/
+site_description: "Competitive multi-agent orchestration where AI agents earn leadership through combat"
+repo_url: https://github.com/Lumi-node/ORC
+repo_name: Lumi-node/ORC
+
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      primary: red
+      accent: deep orange
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: red
+      accent: deep orange
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - content.code.copy
+    - content.code.annotate
+    - toc.follow
+    - search.suggest
+    - search.highlight
+  font:
+    text: Inter
+    code: JetBrains Mono
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: true
+            show_root_heading: true
+            heading_level: 3
+            docstring_style: google
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.details
+  - admonition
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Lumi-node/ORC
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/orc-arena/
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quick-start.md
+    - Core Concepts: getting-started/concepts.md
+  - Guides:
+    - Model Showdown: guides/model-showdown.md
+    - Custom Judges: guides/custom-judges.md
+    - Challenge Strategies: guides/strategies.md
+    - Use Cases: guides/use-cases.md
+  - API Reference:
+    - Arena: reference/arena.md
+    - Warrior: reference/warrior.md
+    - Elder: reference/elder.md
+    - Judges: reference/judges.md
+    - Strategies: reference/strategies.md
+  - Built With: built-with.md
